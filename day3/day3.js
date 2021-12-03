@@ -5,7 +5,7 @@ var filename = "day3testinput.txt";
 fs.readFile(filename, 'utf8', function(err, data){
     if (err) throw err;
     var dataInt = []; 
-    data.split("\r\n").forEach(function(i){
+    data.split("\n").forEach(function(i){
         dataInt.push(i);
     });
     //runIt(dataInt);
@@ -23,7 +23,7 @@ var runIt = function(data){
             current = current + parseInt(item[i])
         })
 
-        if (current > (data.length/2)) {
+        if (current >= (data.length/2)) {
             output = output + "1"
         } else {
             output = output + "0"
@@ -56,19 +56,50 @@ var swapBin = function(binary) {
     return output;
 }
 
+var filterArray = function(array, firstChar) {
+
+    var outArray = []
+    array.forEach(function(el, i){
+        console.log("Does " + el + " start with " + firstChar)
+        if (el[0] == firstChar) {
+            //array.splice(1, i)
+            outArray.push(el)
+        }
+    })
+    return outArray
+}
+
 var part2 = function(data){
     input = runIt(data)
-    var valid = data
+    var o2gen = [...data]
+    var scrubber = [...data]
+
+    o2gen = filterArray(o2gen, input.most[0]);
+    scrubber = filterArray(scrubber, input.least[0])
+
+    console.log(o2gen);
+    console.log(scrubber);
+
+
     //console.log(input)
-    for (var i = 0; i < data[0].length; i++) {
+    //console.log(data)
+
+
+    var newCommon = runIt(o2gen);
+    console.log(newCommon)
+    
+    for (var i = 1; i < o2gen.length; i++) {
         //console.log("VALID LENGTH: " + valid.length)
-        data.forEach(function(d, index){
-            console.log("Checking " + d + " for a " + input.least[i] + "at index " + i)
-            if (d[i] != input.least[i]) {
+        o2gen.forEach(function(d, index) {
+            if (index > 1) {
+            console.log("Checking " + d + " for a " + newCommon.most[i] + " at index " + i)
+            if (d[i] != newCommon.most[i]) {
                 console.log("didn't find - removing " + d)
-                valid.splice(index, 1);
+                o2gen.splice(index, 1);
+            }
             }
         })
     }
-    console.log(valid)
+    console.log(o2gen)
+    
 }
