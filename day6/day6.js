@@ -9,12 +9,13 @@ fs.readFile(filename, 'utf8', function(err, data){
     
     //part1(dataInt);
     //part1([3,4,3,1,2])
-    part2("3,4,3,1,2");
+    part2(dataInt);
+    //part2([3,4,3,1,2])
 })
 
 var part1 = function(data) {
-    //onsole.log(data)
-    var numDays = 80;
+    //console.log(data)
+    var numDays = 256;
 
     for (var i = 0; i < numDays; i++) {
         data.forEach(function(e, index){
@@ -33,17 +34,48 @@ var part1 = function(data) {
 }
 
 var part2 = function(data) {
-    var numDays = 80;
-    var dataStripped = data.replace(/,/g, "");
+    var numDays = 256;
 
-    console.log(dataStripped);
+    var nums = {
+        0: 0,
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0,
+        6: 0,
+        7: 0,
+        8: 0
+    }
+    data.forEach(function(e){
+        nums[e] = nums[e] + 1
+    })
+    
+    var new8s = 0;
 
     for (var i = 0; i < numDays; i++) {
-        for (var j = 0; j < dataStripped.length; j++) {
-            //console.log(dataStripped.charAt(j))
-            //hahaha not this way :(
-        }
-        //var len = dataStripped.length
+        new8s = nums[0];
+        
+        nums[0] = nums[1]
+        nums[1] = nums[2]
+        nums[2] = nums[3]
+        nums[3] = nums[4]
+        nums[4] = nums[5]
+        nums[5] = nums[6]
+        nums[6] = nums[7] + new8s
+        nums[7] = nums[8]
+        nums[8] = new8s
+
+        new8s = 0
+        //console.log(nums)
         
     }
+    console.log(nums)
+    
+    var total = nums[0] + nums[1] + nums[2] + nums[3] + nums[4] + nums[5] + nums[6] + nums[7] + nums[8] 
+
+    console.log("Total: " + total)
+    //console.log(nums)
+
+
 }
