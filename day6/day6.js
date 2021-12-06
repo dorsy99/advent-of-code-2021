@@ -7,12 +7,13 @@ fs.readFile(filename, 'utf8', function(err, data){
     var dataInt = []; 
     dataInt = data.split(",");
     
-    part1(dataInt);
+    //part1(dataInt);
     //part1([3,4,3,1,2])
+    part2("3,4,3,1,2");
 })
 
 var part1 = function(data) {
-    console.log(data)
+    //onsole.log(data)
     var numDays = 80;
 
     for (var i = 0; i < numDays; i++) {
@@ -31,3 +32,18 @@ var part1 = function(data) {
 
 }
 
+var part2 = function(data) {
+    var numDays = 80;
+    var dataStripped = data.replace(/,/g, "");
+
+    console.log(dataStripped);
+
+    for (var i = 0; i < numDays; i++) {
+        for (var j = 0; j < dataStripped.length; j++) {
+            //console.log(dataStripped.charAt(j))
+            //hahaha not this way :(
+        }
+        //var len = dataStripped.length
+        
+    }
+}
