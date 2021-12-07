@@ -8,8 +8,8 @@ fs.readFile(filename, 'utf8', function(err, data){
     
     //part1(dataInt);
     //part1([16,1,2,0,4,2,7,1,2,14])
-    //part2(dataInt);
-    part2([16,1,2,0,4,2,7,1,2,14])
+    part2(dataInt);
+    //part2([16,1,2,0,4,2,7,1,2,14])
 })
 
 
@@ -61,12 +61,42 @@ var part1 = function(data) {
 }
 
 var part2 = function(data) {
+    
+    /* Silly andrew, brute force is for chumps
+    data.sort(function(a,b){
+        return a-b;
+    })
+
+    var max = data[data.length-1]
+    var minFuel = 0;
+    var fuelThisRun = 0;
+
+    for (var i = 0; i < max; i++) {
+        data.forEach(function(e){
+            fuelThisRun = fuelThisRun + useFuel(i, e);
+        })
+
+        if (minFuel == 0) {
+            minFuel = fuelThisRun;
+        } else if (minFuel > fuelThisRun) {
+            minFuel = fuelThisRun;
+        }
+
+        fuelThisRun = 0;
+    }
+
+    console.log(minFuel)
+
+    */
+    
+
     var total = 0;
-    var mean = Math.round(getMean(data));
+    var mean = (Math.round(getMean(data)) -1);
 
     data.forEach(function(e){
-        total = total + useFuel(e, mean);
+        total = total + useFuel(mean, e);
     })
 
     console.log(total)
+    
 }
