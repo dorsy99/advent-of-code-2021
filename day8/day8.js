@@ -1,5 +1,6 @@
 var fs = require('fs');
 var filename = "day8input.txt";
+//var filename = "day8test.txt";
 
 fs.readFile(filename, 'utf8', function(err, data){
     if (err) throw err;
@@ -78,6 +79,8 @@ console.log(containsAll("ab","ecbad"))
 
 var part2 = function(data) {
 
+    var totalReturn = 0;
+
     //1 is 2 long
     // 4 is 4 long
     // 7 is 3 long
@@ -141,7 +144,7 @@ var part2 = function(data) {
                 }
 
                 // 6 is 6 long and does not contain all of 1
-                if (one != null && input.length == 6 && containsAll(one, input) && six == null) {
+                if (one != null && input.length == 6 && !(containsAll(one, input)) && six == null) {
                     //console.log("checking " + input)
                     six = input;
                     i++
@@ -158,14 +161,14 @@ var part2 = function(data) {
                 }
 
                 // 3 is 5 long and contains all of 1
-                if (input.length == 5 && three == null && one != null && containsAll(one, input)) {
+                if (input.length == 5 && three == null && one != null && nine != null  && containsAll(one, input)) {
                     three = input;
                     i++
                     //console.log("found three: " + three)
                 }
 
                 // 5 is 5 long and contained in 9
-                if (input.length == 5 && five == null && nine != null && containsAll(input, nine)) {
+                if (input.length == 5 && five == null && three != null && nine != null && containsAll(input, nine) && !containsAll(one, input)) {
                     five = input;
                     i++
                     //console.log("found five: " + five)
@@ -182,7 +185,21 @@ var part2 = function(data) {
         }
 
         var final = "";
-        console.log(e.outputs)
+        console.log(e.outputs);
+
+        console.log("Numbers:");
+        console.log("Zero: " + zero);
+        console.log("One: " + one);
+        console.log("Two: " + two);
+        console.log("Three: " + three);
+        console.log("Four: " + four);
+        console.log("Five: " + five);
+        console.log("Six: " + six);
+        console.log("Seven: " + seven);
+        console.log("Eight: " + eight);
+        console.log("Nine: " + nine);
+
+        
         e.outputs.forEach(function(input){
 
             input = alph(input);
@@ -220,12 +237,13 @@ var part2 = function(data) {
             }
         });
 
+        totalReturn = totalReturn + parseInt(final)
         console.log(parseInt(final))
                 
 
 
     })
     
-
+    console.log("Total: " + totalReturn)
 
 }
